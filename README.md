@@ -81,12 +81,6 @@ Full options: `python code/prediction.py -h`
 - Python ≥ 3.9, **scikit-learn 1.3.x** (`<1.4`), PyTorch ≥ 2.0 — `requirements.txt`
 - FASTA + PDB path: **fair-esm**, **mamba-ssm** (match training CUDA/torch)
 
----
-
-## Notes
-
-- Use **`-m model/dataset_a/`**.
-- Do not mix Dataset A/B `preprocess.joblib` / `feature_schema.json`.
 
 ---
 
