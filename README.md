@@ -7,7 +7,6 @@ Run from **`DeepGVS/`**:
 ```bash
 cd DeepGVS
 pip install -r requirements.txt
-python code/verify_model.py -m model/dataset_a/
 ```
 
 ---
