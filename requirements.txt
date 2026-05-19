@@ -1,6 +1,6 @@
 # DeepGVS — Python >= 3.9
 #
-# 安装（stacking 预测 + FASTA 查表）:
+# 安装（stacking 预测 + FASTA/CDS 特征）:
 #   pip install -r requirements.txt
 #
 # PyTorch：若需 GPU，请按 https://pytorch.org 选择与 CUDA 匹配的 wheel，例如:

@@ -52,10 +52,10 @@ model/
 
 ### `dataset_b/`
 
-| 文件 | 当前状态 |
-|------|----------|
+| 文件 | 状态 |
+|------|------|
 | `base_learners.pkl`、`nam_meta_learner.pt` | 已有 |
-| `feature_schema.json`、`preprocess.joblib` | **缺失**，需按 B 的训练特征表单独生成后才能对 B 做完整 FASTA/合并表预测 |
+| `feature_schema.json`、`preprocess.joblib` | **未包含**，需按 B 的训练特征表自行准备后才能做完整预测 |
 
 **不要**用 A 的 `feature_schema.json` / `preprocess.joblib` 预测 B。
 

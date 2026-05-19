@@ -49,7 +49,7 @@ DeepGVS 新样本毒力因子（VF）预测入口。
 模式 B 中蛋白结构特征（--protein-mode）
 ------------------------------------
   csv     : 只查 --protein-features 表（缺 ID 报错）
-  compute : 只从 PDB 跑 Graph-Mamba（需 VFS + graph_mamba_infer.json）
+  compute : 只从 PDB 跑 Graph-Mamba（需 --graph-mamba-config 或 DEEPGVS_GRAPH_MAMBA_CONFIG）
   auto    : 先查表，缺的 ID 再尝试 PDB 计算
 
 模型目录 model/ 必需文件
@@ -374,9 +374,9 @@ Graph-Mamba on-the-fly (conda env VFS recommended):
     parser.add_argument(
         "--protein-mode",
         type=str,
-        default="auto",
+        default="compute",
         choices=("auto", "csv", "compute"),
-        help="Protein features: auto=CSV then PDB; csv=table only; compute=Graph-Mamba from PDB",
+        help="Protein features: compute=Graph-Mamba from PDB (default); csv=precomputed table only; auto=table then PDB",
     )
     parser.add_argument("--pdb-dir", type=str, default="", help="PDB dir with {sequence_id}.pdb")
     parser.add_argument("--pdb-root", type=str, default="", help="External PDB root (DATASETA_PDB_ROOT)")
@@ -384,7 +384,7 @@ Graph-Mamba on-the-fly (conda env VFS recommended):
         "--graph-mamba-config",
         type=str,
         default="",
-        help=f"Graph-Mamba JSON (default: {default_graph_mamba_config_path()})",
+        help="Graph-Mamba JSON (or set DEEPGVS_GRAPH_MAMBA_CONFIG); required for --protein-mode compute",
     )
     parser.add_argument(
         "--gm-device",
@@ -462,7 +462,8 @@ Graph-Mamba on-the-fly (conda env VFS recommended):
     if args.graph_mamba_config.strip():
         gm_cfg = Path(args.graph_mamba_config).resolve()
     else:
-        gm_cfg = default_graph_mamba_config_path() if default_graph_mamba_config_path().is_file() else None
+        _gm_default = default_graph_mamba_config_path()
+        gm_cfg = _gm_default if _gm_default is not None and _gm_default.is_file() else None
 
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", category=pd.errors.PerformanceWarning)

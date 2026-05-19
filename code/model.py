@@ -2,6 +2,7 @@
 """RF / SVM / XGBoost / MLP 基学习器加载与 stacking 推理。"""
 from __future__ import annotations
 
+import gzip
 import json
 import pickle
 from pathlib import Path
@@ -35,6 +36,16 @@ LEARNER_FILES: List[Tuple[str, str]] = [
     ("xgboost.pkl", "xgboost"),
     ("mlp.pkl", "mlp"),
 ]
+
+
+def _open_model_file(path: Path):
+    """Open a model file or its `.gz` sibling (e.g. base_learners.pkl.gz)."""
+    if path.is_file():
+        return path.open("rb")
+    gz = Path(f"{path}.gz")
+    if gz.is_file():
+        return gzip.open(gz, "rb")
+    raise FileNotFoundError(path)
 
 
 def repo_root() -> Path:
@@ -133,13 +144,14 @@ def load_base_learners(model_dir: Path) -> Dict[str, Any]:
     learners: Dict[str, Any] = {}
     for fname, key in LEARNER_FILES:
         p = model_dir / fname
-        if p.is_file():
-            with p.open("rb") as f:
+        if p.is_file() or Path(f"{p}.gz").is_file():
+            with _open_model_file(p) as f:
                 learners[key] = _patch_pipeline(pickle.load(f))
             continue
     legacy = model_dir / "base_learners.pkl"
-    if legacy.is_file():
-        raw = pickle.load(legacy.open("rb"))
+    if legacy.is_file() or Path(f"{legacy}.gz").is_file():
+        with _open_model_file(legacy) as f:
+            raw = pickle.load(f)
         if isinstance(raw, dict):
             for _, key in LEARNER_FILES:
                 if key in raw:

@@ -57,14 +57,14 @@ def main() -> None:
     parser.add_argument(
         "--cds-features",
         type=str,
-        default=str(root / "Feature/Dataset_A/CDS/features_all.csv"),
+        default="",
+        help="CDS feature CSV (sequence_id, label, split, ...); required unless --merged-features",
     )
     parser.add_argument(
         "--structural-features",
         type=str,
-        default=str(
-            root / "Feature/Dataset_A/protein_structure/graph_mamba_features_all_splits.idfixed.csv"
-        ),
+        default="",
+        help="Graph-Mamba feature CSV (graph_mamba_feat_*); required unless --merged-features",
     )
     parser.add_argument("--merged-features", type=str, default="", help="Or one merged CSV with split+label")
     parser.add_argument("--train-splits", type=str, default="train,val")
@@ -79,9 +79,11 @@ def main() -> None:
 
     if args.merged_features.strip():
         merged = pd.read_csv(Path(args.merged_features).resolve())
-        schema_path = root / "model/feature_schema.json"
+        schema_path = root / "model/dataset_a/feature_schema.json"
         feature_cols = list(json.loads(schema_path.read_text(encoding="utf-8"))["feature_columns"])
     else:
+        if not args.cds_features.strip() or not args.structural_features.strip():
+            parser.error("Provide --merged-features or both --cds-features and --structural-features.")
         merged, feature_cols = merge_cds_and_structure(
             Path(args.cds_features).resolve(),
             Path(args.structural_features).resolve(),

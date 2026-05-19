@@ -2,13 +2,11 @@
 """
 蛋白质结构特征（Graph-Mamba 嵌入）。
 
-- 默认：从预计算 CSV 查表（``graph_mamba_feat_*``）
-- 在线：从 PDB 构图 + 加载训练 checkpoint 前向（实现见同目录 ``graph_mamba_*`` / ``esm2_feature_extractor``）
-- FASTA：在 ``pdb_root`` / ``pdb_dir`` 下按 ``sequence_id`` 解析已有 PDB；无结构则报错并提示先用 ESMFold 生成
+FASTA 预测默认从 PDB 现场前向（构图 + checkpoint），得到 ``graph_mamba_feat_*``；
+可选 ``--protein-mode csv`` 读预计算表（非默认）。
 
-推荐在作者本机 **conda 环境 ``VFS``** 下运行（含 ``mamba-ssm``、``fair-esm``、``torch 2.1+cu118``）::
-
-  ./run_vfs.sh code/prediction.py -m model/ -pseq ... -cds ... --protein-mode compute
+需 ``--graph-mamba-config`` 或环境变量 ``DEEPGVS_GRAPH_MAMBA_CONFIG``（checkpoint、ProtT5 路径）。
+推荐 conda 环境含 mamba-ssm、fair-esm、与训练一致的 PyTorch/CUDA。
 """
 from __future__ import annotations
 
@@ -151,19 +149,19 @@ def resolve_pdb_path(
     )
 
 
-def default_graph_mamba_config_path() -> Path:
+def default_graph_mamba_config_path() -> Path | None:
     env = (os.environ.get("DEEPGVS_GRAPH_MAMBA_CONFIG") or "").strip()
     if env:
         return Path(env).expanduser().resolve()
-    return repo_root() / "model" / "graph_mamba_infer.json"
+    return None
 
 
 def load_graph_mamba_config(path: Path | None = None) -> dict:
     cfg_path = Path(path) if path else default_graph_mamba_config_path()
-    if not cfg_path.is_file():
+    if cfg_path is None or not cfg_path.is_file():
         raise FileNotFoundError(
-            f"Graph-Mamba config not found: {cfg_path}. "
-            "Copy model/graph_mamba_infer.json and set checkpoint / global_prott5_dir."
+            "Graph-Mamba config not found. Set DEEPGVS_GRAPH_MAMBA_CONFIG or pass "
+            "--graph-mamba-config /path/to/config.json (checkpoint, global_prott5_dir)."
         )
     with cfg_path.open(encoding="utf-8") as f:
         return json.load(f)
