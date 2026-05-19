@@ -1,0 +1,32 @@
+{
+  "dataset": "Dataset_A",
+  "description": "DeepGVS stacking release for VF prediction (CDS + Graph-Mamba, 2146-dim raw features).",
+  "raw_feature_dim": 2146,
+  "preprocessed_dim": 182,
+  "meta_learner_input_dim": 4,
+  "num_classes": 2,
+  "release_files": {
+    "feature_schema.json": "Column order for 2146 merged features (1792 protein + 354 CDS).",
+    "preprocess.joblib": "FittedSingleStreamPreprocessor bundle (2146 -> 182); must match training MI/PCA.",
+    "rf.pkl": "Random forest base learner (sklearn pipeline).",
+    "svm.pkl": "RBF SVM base learner.",
+    "xgboost.pkl": "XGBoost base learner.",
+    "mlp.pkl": "MLP base learner.",
+    "nam.pt": "NAM meta-learner checkpoint (4 base probabilities -> 2 classes).",
+    "graph_mamba_infer.json": "Graph-Mamba on-the-fly inference config (optional; symlink to repo root)."
+  },
+  "dataset_b": {
+    "path": "dataset_b/",
+    "files": ["base_learners.pkl", "nam_meta_learner.pt"],
+    "note": "Dataset B stacking only; do not mix with Dataset A schema/preprocess at model root."
+  },
+  "training_backup": {
+    "dataset_a": "../../dataA/stacking_nam_out_bclocalrepeat_fusion_dataA/",
+    "dataset_b": "../../dataB/stacking_nam_out_bclocalrepeat_fusion (1)/"
+  },
+  "cli": {
+    "predict": "python code/prediction.py -m model/",
+    "test": "python code/test.py -m model/ -i data/test_data.pt",
+    "verify": "python code/verify_model.py -m model/"
+  }
+}
