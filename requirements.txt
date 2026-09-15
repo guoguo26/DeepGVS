@@ -1,23 +1,17 @@
-# DeepGVS — Python >= 3.9
-#
-# 安装（stacking 预测 + FASTA/CDS 特征）:
-#   pip install -r requirements.txt
-#
-# PyTorch：若需 GPU，请按 https://pytorch.org 选择与 CUDA 匹配的 wheel，例如:
-#   pip install torch --index-url https://download.pytorch.org/whl/cu118
-#
-# 基学习器权重在 sklearn 1.3.x 下导出，请保持 scikit-learn>=1.3,<1.4。
-# 更高版本可能 unpickle 失败（code/model.py 含部分兼容补丁，仍建议版本一致）。
-#
-# 现场 Graph-Mamba（--protein-mode compute）需额外依赖，见 requirements-graph-mamba.txt
-# 或 conda 环境 VFS（fair-esm、mamba-ssm、torch 2.1+cu118）。
-
-# --- 核心：prediction / verify_model / FASTA+csv / dump_preprocess ---
-numpy>=1.21.0,<2.0.0
+# DeepGVS — manuscript environment: Python 3.10.18, PyTorch 2.1.0 (CUDA 11.8)
+# Stacking inference: FASTA -> CDS 354-dim + Graph-Mamba 1792-dim -> 2146 -> base learners -> NAM
+numpy==1.26.2
 pandas>=1.3.0
-scipy>=1.9.0
-scikit-learn>=1.3.0,<1.4.0
-xgboost>=1.7.0,<3.0.0
+scipy==1.10.1
+scikit-learn==1.3.2
+xgboost==3.0.5
 joblib>=1.2.0
 tqdm>=4.62.0
-torch>=2.0.0
+torch==2.1.0
+pyyaml>=6.0
+
+# --- online FASTA + PDB path only (Graph-Mamba protein embeddings) ---
+# These compile CUDA kernels at install time and need a CUDA 11.8 toolkit + g++;
+# they are intentionally NOT installed by default so that the CPU / merged-features
+# path works everywhere. Install manually when you need the online path:
+#   pip install fair-esm==2.0.0 mamba-ssm==1.2.2 causal-conv1d==1.2.2.post1 einops

@@ -1,0 +1,27 @@
+# Dataset B — dataSet (train) / ind (independent test) from paired FASTA
+dataset: Dataset_B
+seed: 42
+
+features:
+  protein_dim: 1792
+  cds_dim: 354
+  raw_dim: 2146
+  local_window_size: 128
+  local_window_step: 128
+  orf_max_len_nt: 8192
+
+splits:
+  train:
+    protein_fasta: Dataset/Dataset_B/protein/dataSet.fasta  # 6000 records
+    cds_fasta: Dataset/Dataset_B/CDS/dataSet.fasta
+  validation:
+    protein_fasta: Dataset/Dataset_B/protein/ind.fasta      # 1152 records (independent set)
+    cds_fasta: Dataset/Dataset_B/CDS/ind.fasta
+  test: null  # Dataset B has no separate test split in this snapshot
+
+model_dir: model/dataset_b
+notes: >
+  Headers carry `0|1|...` label prefixes; the canonical sequence_id
+  replaces `|` with `_` (see src/deepgvs/protein_feature.py).
+  model/dataset_b ships stacking weights only; full prediction needs the
+  Dataset B schema + preprocess bundle (archived on Zenodo).

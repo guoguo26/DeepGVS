@@ -1,1 +1,7 @@
-*.pkl filter=lfs diff=lfs merge=lfs -text
+# LFS for the large model weight(s) that DO stay on GitHub as pointers.
+# Keep this minimal: only the ~27 MB base_learners.pkl.
+# nam_meta_learner.pt / preprocess.joblib are < 120 KB and stay in plain git.
+# Full Dataset_A/B FASTA, feature CSVs and training outputs are NOT in git at all
+# (see .gitignore) — they are uploaded to the Zenodo record instead.
+model/dataset_a/base_learners.pkl filter=lfs diff=lfs merge=lfs -text
+model/dataset_b/base_learners.pkl filter=lfs diff=lfs merge=lfs -text

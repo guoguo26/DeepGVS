@@ -1,0 +1,23 @@
+name: deepgvs
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10.18
+  - pip
+  - pytorch=2.1.0
+  - pytorch-cuda=11.8
+  - pip:
+      - -r requirements.txt
+      - fair-esm
+      - mamba-ssm
+      - transformers==4.30.0
+
+# --- venv alternative (used for the manuscript freeze) ---
+# python -m venv /path/to/deepgvs --prompt deepgvs   # with a Python 3.10.18 interpreter
+# export PIP_CONFIG_FILE=<repo>/configs/pip-ustc.conf  # or your fastest mirror
+# pip install "torch==2.1.0" --index-url https://download.pytorch.org/whl/cu118
+# pip install -r requirements.txt fair-esm "transformers==4.30.0"
+# pip install mamba-ssm==1.2.2 causal-conv1d==1.2.2.post1  # needs nvcc + g++

@@ -1,0 +1,63 @@
+model_name: simple_graph_mamba
+num_classes: 2
+
+# Graph construction from PDB (see src/deepgvs/pdb_graph.py)
+graph:
+  k: 30
+  max_len: 0
+
+# Node features: ESM-2 over full sequence, cached per residue
+esm:
+  model: esm2_t33_650M_UR50D
+  repr_layers: "33"
+  node_full_sequence: false
+  node_encode_max_len: 0
+
+# Backbone
+encoder:
+  input_dim: null        # set at runtime: esm_dim * len(repr_layers)
+  hidden_dim: 256
+  num_mamba_layers: 4
+  mamba_d_state: 16
+  dropout: 0.1
+  graph_conv: gat        # gat | sage | gcn
+  gat_heads: 4
+  sage_agg: mean
+  pooling: multi_attn
+  pool_heads: 6
+  set2set_steps: 4
+  pool_merge_activation: gelu
+  pool_attn_dropout: 0.0
+  parallel_fusion: concat
+  cross_interaction: none
+
+# Optional global ProtT5 branch (off by default)
+global_prott5:
+  use: false
+  dim: 1024
+  mamba_global_token: false
+  branch: false
+  branch_widths: [512, 256, 128]
+
+# Stacking head on 2146-dim raw features (1792 protein + 354 CDS)
+stacking:
+  raw_dim: 2146
+  preprocessed_dim: 182
+  preprocess:
+    feature_select_method: mi
+    feature_select_k: 700
+    graph_pca_var: 0.95
+    random_seed: 42
+  base_learners: [random_forest, svm_rbf, xgboost, mlp]
+  meta_learner:
+    type: NAM
+    hidden_dim: 16
+    num_layers: 2
+    dropout: 0.2
+    num_features: 4
+    num_classes: 2
+
+inference:
+  threshold: 0.5
+  inference_device: cpu
+  graph_mamba_device: auto

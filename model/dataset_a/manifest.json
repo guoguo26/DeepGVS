@@ -13,8 +13,13 @@
   },
   "dataset_b": {
     "path": "model/dataset_b/",
-    "files": ["base_learners.pkl", "nam_meta_learner.pt"],
-    "note": "Stacking weights only; requires Dataset B schema and preprocess for full prediction."
+    "files": [
+      "feature_schema.json",
+      "preprocess.joblib",
+      "base_learners.pkl",
+      "nam_meta_learner.pt"
+    ],
+    "note": "B consumes RAW 2146 (feature_select=none, no PCA; identity preprocess). Schema/preprocess rebuilt from Feature/Dataset_B with canonical IDs (strip non_VF_ prefix and trailing '_'); DNA-first column order matching base learners. Verified: test 1152/1152 AUC 0.9275, identical to published stacking_metrics.json (agree=1.0)."
   },
   "cli": {
     "predict": "python code/prediction.py -m model/dataset_a/",

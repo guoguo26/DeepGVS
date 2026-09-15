@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+title: "DeepGVS: a bimodal deep learning framework integrating coding-sequence and protein-structural representations for virulence factor prediction"
+message: If you use DeepGVS, please cite the manuscript and the Zenodo record.
+version: 1.0.0
+date-released: 2026-09-12
+license: MIT
+repository-code: https://github.com/guoguo26/DeepGVS
+identifiers:
+  - description: DeepGVS v1.0.0 manuscript snapshot (code, models, data)
+    type: doi
+    value: 10.5281/zenodo.21756890
+authors:
+  - family-names: Miao
+    given-names: Yan
+    affiliation: "School of Computer Science and Artificial Intelligence, Northeast Forestry University, Heilongjiang, China"
+  - family-names: Zou
+    given-names: Tingting
+    affiliation: "School of Computer Science and Artificial Intelligence, Northeast Forestry University, Heilongjiang, China"
+  - family-names: Sun
+    given-names: Zhenyuan
+    affiliation: "School of Computer Science and Artificial Intelligence, Northeast Forestry University, Heilongjiang, China"
+  - family-names: Zhao
+    given-names: Yuming
+    affiliation: "School of Computer Science and Artificial Intelligence, Northeast Forestry University, Heilongjiang, China"
+  - family-names: Wang
+    given-names: Guohua
+    affiliation: "School of Computer Science and Artificial Intelligence, Northeast Forestry University; Faculty of Computing, Harbin Institute of Technology, Heilongjiang, China"
+    email: ghwang@nefu.edu.cn
+keywords:
+  - virulence factors
+  - graph-mamba
+  - protein structure
+  - stacking ensemble

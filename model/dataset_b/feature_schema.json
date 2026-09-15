@@ -4300,5 +4300,5 @@
   "local_window_size": 128,
   "local_window_step": 128,
   "orf_max_len_nt": 8192,
-  "cds_reference_csv": "Feature/Dataset_A/CDS/features_all.csv"
+  "cds_reference_csv": "Feature/Dataset_B/CDS/features_all.csv"
 }

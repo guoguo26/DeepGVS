@@ -1,0 +1,22 @@
+# GitHub tracks code, configs, docs, small example; large artifacts live on Zenodo.
+# See README.md + docs/reproduction.md for the GitHub <-> Zenodo split.
+
+# --- never commit the Zenodo upload payload (built separately at release) ---
+zenodo_staging/
+
+# --- full datasets live on Zenodo, not in git (keep only the tiny demo) ---
+Dataset/Dataset_A/
+Dataset/Dataset_B/
+data/
+
+# --- local run outputs ---
+results/
+
+# --- python / packaging ---
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.conda/
+venv/
