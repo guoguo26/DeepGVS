@@ -125,7 +125,7 @@ The shipped `example/expected_output.tsv` is the real output of the Dataset A co
 
 ## Author
 
-DeepGVS is developed by Prof. Guohua Wang's group at the School of Computer Science and Artificial Intelligence, Northeast Forestry University, Harbin, China. Authors: Yan Miao, Tingting Zou, Zhenyuan Sun, Yuming Zhao and Guohua Wang. Should you have any queries, please feel free to contact us by ghwang@nefu.edu.cn.
+DeepGVS is developed by Prof. Guohua Wang's group at the School of Computer Science and Artificial Intelligence, Northeast Forestry University, Harbin, China. Authors: Yan Miao, Tingting Zou, Zhenyuan Sun, Yuming Zhao and Guohua Wang. Should you have any queries, please feel free to contact us by guoguo@nefu.edu.cn.
 
 If you use DeepGVS, please cite the manuscript (see `CITATION.cff`).
 
