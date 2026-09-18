@@ -1,6 +1,6 @@
 # DeepGVS
 
-DeepGVS is a bimodal deep learning framework that predicts bacterial virulence factors (VF) from coding sequences. It integrates protein-structural representations (ESM-2 residue features encoded by a Graph-Mamba network over ESMFold-predicted structures) with coding-sequence features (354-dim CDS features); the 2146-dim concatenated features are scored by a stacking ensemble (RF / SVM / XGBoost / MLP) with a NAM meta-learner. The pretrained models and the datasets analyzed in the manuscript are available at Zenodo: [10.5281/zenodo.21756890](https://zenodo.org/records/21756890).
+DeepGVS is a bimodal deep learning framework that predicts bacterial virulence factors (VF) from coding sequences. It integrates protein-structural representations (ESM-2 residue features encoded by a Graph-Mamba network over ESMFold-predicted structures) with coding-sequence features (354-dim CDS features); the 2146-dim concatenated features are scored by a stacking ensemble (RF / SVM / XGBoost / MLP) with a NAM meta-learner. The pretrained models and the datasets analyzed in the manuscript are available at Zenodo: [10.5281/zenodo.22764397](https://doi.org/10.5281/zenodo.22764397).
 
 ## Installation
 
@@ -57,7 +57,7 @@ pip install -r requirements.txt
 
 ## Using DeepGVS
 
-1. Download the pretrained models from Zenodo ([10.5281/zenodo.21756890](https://zenodo.org/records/21756890)) and unpack them into the repository:
+1. Download the pretrained models from Zenodo ([10.5281/zenodo.22764397](https://doi.org/10.5281/zenodo.22764397)) and unpack them into the repository:
 
 ```text
 model/dataset_a/    preprocess.joblib, base_learners.pkl, nam_meta_learner.pt, feature_schema.json
