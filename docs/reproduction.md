@@ -6,7 +6,7 @@ GitHub always holds the living (latest) code.
 
 ## 1. Get the manuscript snapshot
 
-- Zenodo DOI: [`10.5281/zenodo.21756890`](https://zenodo.org/records/21756890)
+- Zenodo DOI: [10.5281/zenodo.22764397](https://doi.org/10.5281/zenodo.22764397)
 - Unpack `DeepGVS-v1.0.0/` and use it instead of the GitHub checkout for reproduction.
 
 ## 2. Environment
