@@ -1,14 +1,14 @@
 cff-version: 1.2.0
 title: "DeepGVS: a bimodal deep learning framework integrating coding-sequence and protein-structural representations for virulence factor prediction"
 message: If you use DeepGVS, please cite the manuscript and the Zenodo record.
-version: 1.0.0
-date-released: 2026-09-12
+version: 1.1.0
+date-released: 2026-09-18
 license: MIT
 repository-code: https://github.com/guoguo26/DeepGVS
 identifiers:
-  - description: DeepGVS v1.0.0 manuscript snapshot (code, models, data)
+  - description: DeepGVS v1.1.0 archive (source code, datasets, and pretrained models)
     type: doi
-    value: 10.5281/zenodo.21756890
+    value: 10.5281/zenodo.22764397
 authors:
   - family-names: Miao
     given-names: Yan
